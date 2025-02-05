@@ -7,15 +7,21 @@ from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="API de Prédiction de Crédit")
 
-# Middleware CORS pour autoriser les requêtes de n'importe quel domaine
+origins = [
+    "http://52.89.55.119",  # Remplacez par votre IP publique ou domaine
+    "http://localhost",
+    "http://127.0.0.1",
+    "http://localhost:4200",  # Si vous testez en local avec Angular
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Autorise toutes les origines
+    allow_origins=origins,  # Autoriser uniquement ces origines
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Autoriser toutes les méthodes HTTP (GET, POST, etc.)
+    allow_headers=["*"],  # Autoriser tous les headers
 )
-
+# Middleware CORS pour autoriser les requêtes de n'importe quel domaine
 # Charger le modèle et le scaler depuis les fichiers pré-entraînés
 model = joblib.load('best_xgb_model.pkl')
 scaler = joblib.load('scaler.pkl')  # Charger le scaler déjà ajusté
