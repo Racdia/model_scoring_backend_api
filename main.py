@@ -51,7 +51,7 @@ class CreditData(BaseModel):
     num__OBS_60_CNT_SOCIAL_CIRCLE: float
 
 
-@app.post("/predict/")
+@app.post("/api/predict/")
 async def predict(credit_data: CreditData):
     try:
         # Convertir l'objet Pydantic en dictionnaire, puis en DataFrame
@@ -76,7 +76,7 @@ async def predict(credit_data: CreditData):
         prob = float(predictions_prob[0])
 
         # Déterminer la décision en fonction du seuil 0.5
-        credit_decision = "Crédit Accordé" if prob > 0.5 else "Crédit Refusé"
+        credit_decision = "Crédit Accordé" if prob > 0.05 else "Crédit Refusé"
 
         # Renvoi personnalisé : décision et probabilité de remboursement
         return {
