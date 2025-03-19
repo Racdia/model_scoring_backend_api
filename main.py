@@ -63,7 +63,7 @@ async def predict(credit_data: CreditData):
         le = LabelEncoder()
         for col in df.select_dtypes(include="object").columns:
             df[col] = le.fit_transform(df[col])
-        print("Encodage des variables catégorielles effectué.")
+        print("Encodages des variables catégorielles effectué.")
 
         # Sélectionner uniquement les colonnes numériques pour la mise à l'échelle
         numeric_columns = df.select_dtypes(include=["float64", "int64"]).columns
